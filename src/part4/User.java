@@ -1,4 +1,4 @@
-package part3;
+package part4;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class User extends Thread {
 			} catch (IOException e) {
 				System.err.println("Error: Couldn't get I/O for the connection to the host ");
 				System.exit(-1);
-			}
+			} 
 		}
 		inputLine.close();
 		output_stream.close();

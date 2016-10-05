@@ -1,6 +1,7 @@
 package part2;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -88,10 +89,12 @@ class UserThread extends Thread {
 					}
 				}
 			}
-		} catch (
-
-		Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(
+					"Error: Client closed the session, reset the connection, other threads will be maintained, don't worry.");
+			errorClose();
+			this.stop();
+			return;
 		}
 
 	}
@@ -126,8 +129,28 @@ class UserThread extends Thread {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println(
+						"Error: Client closed the session, reset the connection, other threads will be maintained, don't worry.");
+				errorClose();
+				this.stop();
+				return;
 			}
+		}
+	}
+
+	public void errorClose() {
+		try {
+			input_stream.close();
+			output_stream.close();
+			userSocket.close();
+			for (int i = 0; i < threads.size(); i++) {
+				if (threads.get(i) == this) {
+					threads.remove(i);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+
 		}
 	}
 }

@@ -46,9 +46,11 @@ public class User extends Thread {
 		try {
 			userSocket = new Socket(host, portNumber);
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			System.err.println("Don't know about host " + host);
+			System.exit(-1);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Couldn't get I/O for the connection to the host " + host);
+			System.exit(-1);
 		}
 
 		/*
@@ -74,7 +76,8 @@ public class User extends Thread {
 					output_stream.println(s);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.err.println("Error: Couldn't get I/O for the connection to the host ");
+				System.exit(-1);
 			}
 		}
 		inputLine.close();
@@ -94,15 +97,20 @@ public class User extends Thread {
 					System.out.println(str);
 				}
 				Thread.sleep(50);
-			} catch (Exception e) {
+			} catch (IOException e) {
+				System.err.println("Error: Couldn't get I/O for the connection to the host ");
+				System.exit(-1);
+			} catch (InterruptedException e) {
 				e.printStackTrace();
+				System.exit(-1);
 			}
 		}
 		try {
 			input_stream.close();
 			System.exit(0);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Error: Couldn't get I/O for the connection to the host ");
+			System.exit(-1);
 		}
 	}
 }
