@@ -1,5 +1,4 @@
 package part2;
-
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -46,6 +45,8 @@ public class Server {
 				output_stream.println("Currently the server is full loaded, please connect later");
 				Thread.sleep(100);
 				output_stream.println("exit-1_SpeCiALIdENtiFer");
+				userSocket.close();
+				output_stream.close();
 			}
 		}
 	}

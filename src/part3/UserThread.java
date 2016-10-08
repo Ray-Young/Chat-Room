@@ -1,5 +1,4 @@
 package part3;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -101,7 +100,7 @@ class UserThread extends Thread {
 			System.err.println(
 					"Error: Client closed the session, reset the connection, other threads will be maintained, don't worry.");
 			errorClose();
-			this.stop();
+			this.interrupt();
 			return;
 		}
 
@@ -220,7 +219,7 @@ class UserThread extends Thread {
 				System.err.println(
 						"Error: Client closed the session, reset the connection, other threads will be maintained, don't worry.");
 				errorClose();
-				this.stop();
+				this.interrupt();
 				return;
 			}
 		}
